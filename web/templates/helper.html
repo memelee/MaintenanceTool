@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="uk-grid">
+    <div class="uk-width-2-10">
+        <ul class="uk-tab uk-tab-left" data-uk-tab="{connect: '#tab-helper', animation: 'fade', swiping: false}">
+            <li class="uk-active"><a href="#">Journal Parser</a></li>
+        </ul>
+    </div>
+    <div class="uk-width-8-10">
+        <ul id="tab-helper" class="uk-switcher uk-margin">
+            <li>
+                <div id="helper-journal-parser">
+                    <div class="uk-alert uk-alert-large">
+                        <h3>Journal Parser</h3>
+                        <p>Please upload your system.journal file, and the decoded journal file will be downloaded automatically.
+                           <br>Attention: Do not add Chinese in file name.
+                        </p>
+                    </div>
+                    <form action="/helper/" method="post" enctype="multipart/form-data">
+                        <input type="file" name="journal-files" multiple="multiple">
+                        <button type="submit" class="uk-button uk-button-primary">Submit</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

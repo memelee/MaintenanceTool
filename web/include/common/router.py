@@ -1,5 +1,6 @@
 from ..issue import IssueView
 from ..metric import MetricView
+from ..helper import HelperView
 from ..login import LoginView
 from ..logout import LogoutView
 from ..group import GroupView
@@ -23,6 +24,12 @@ router = {
         'url': {
             '/metric/': ['GET'],
             '/metric/<int:m_id>': ['GET']
+        }
+    },
+    'helper_view': {
+        'view': HelperView,
+        'url': {
+            '/helper/': ['GET', 'POST']
         }
     },
     'login_view': {
