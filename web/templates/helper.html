@@ -1,5 +1,14 @@
 {% extends 'layout.html' %}
 
+{% block css %}
+<style>
+#journal-files 
+{
+    display: none;
+}
+</style>
+{% endblock css %}
+
 {% block body %}
 <div class="uk-grid">
     <div class="uk-width-2-10">
@@ -17,8 +26,10 @@
                            <br>Attention: Do not add Chinese in file name.
                         </p>
                     </div>
-                    <form action="/helper/" method="post" enctype="multipart/form-data">
-                        <input type="file" name="journal-files" multiple="multiple">
+                    <form action="/helper/" method="post" enctype="multipart/form-data" class="uk-form">
+                        <input type="text" id="journal-path" disabled class="uk-width-3-10" placeholder="File Path">
+                        <input type="file" name="journal-files" id="journal-files" onchange="$('#journal-path').val(this.value)">
+                        <button type="button" class="uk-button uk-button-primary" onclick="$('#journal-files').click()">Browse</button>
                         <button type="submit" class="uk-button uk-button-primary">Submit</button>
                     </form>
                 </div>

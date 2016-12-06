@@ -24,14 +24,17 @@ class HelperView(BaseView):
         folder = JOURNAL_DIR + time_str + random_str
         os.mkdir(folder)
 
-        file.save(os.path.join(folder, filename))
-
-        os.system('journalctl -D %s > %s/journal.log' % (folder, folder))
-
         @after_this_request
         def remove_journal(response):
             shutil.rmtree(folder)
             return response
 
-        path = os.path.join(os.getcwd(), folder)
-        return send_from_directory(path, 'journal.log', as_attachment=True)
+        try:
+            file.save(os.path.join(folder, filename))
+        except Exception:
+            return 'File upload failed', 500
+        else:
+            os.system('journalctl -D %s > %s/journal.log' % (folder, folder))
+
+            path = os.path.join(os.getcwd(), folder)
+            return send_from_directory(path, 'journal.log', as_attachment=True)
