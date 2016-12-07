@@ -1,26 +1,23 @@
 <div class="uk-grid">
     <div class="uk-width-1-1"> 
         <form class="uk-form">
-            <select class="uk-width-1-10" name="category" id="input-category">
-                <option value="0">Select Cat</option>
+            <select class="uk-width-1-10 selectpicker" multiple data-none-selected-text="Select Cat" name="category" id="input-category">
                 {% for category in categories %}
-                <option {% if input.category == category.c_id %} selected {% endif %} value="{{ category.c_id }}">{{ category.c_name }}</option>
+                <option {% if category.c_id in input.category %} selected {% endif %} value="{{ category.c_id }}">{{ category.c_name }}</option>
                 {% endfor %}
             </select>
             <input type="text" class="uk-width-1-10" name="pronto" id="input-pronto" placeholder="PR" value="{{ input.pronto }}">
             <input type="text" class="uk-width-1-10" name="monsho" id="input-monsho" placeholder="Monsho" value="{{ input.monsho }}">
             <input type="text" class="uk-width-2-10" name="title" id="input-title" placeholder="Title" value="{{ input.title }}">
             <input type="text" class="uk-width-1-10" name="person" id="input-person" placeholder="Resp Person" value="{{ input.person }}">
-            <select class="uk-width-1-10" name="state" id="input-state">
-                <option value="0">Select State</option>
+            <select class="uk-width-1-10 selectpicker" multiple data-none-selected-text="Select State" name="state" id="input-state">
                 {% for state in states %}
-                <option {% if input.state == state.s_id %} selected {% endif %} value="{{ state.s_id }}">{{ state.s_name }}</option>
+                <option {% if state.s_id in input.state %} selected {% endif %} value="{{ state.s_id }}">{{ state.s_name }}</option>
                 {% endfor %}
             </select>
-            <select class="uk-width-1-10" name="team" id="input-team">
-                <option value="0">Select Team</option>
+            <select class="uk-width-1-10 selectpicker" multiple data-none-selected-text="Select Team" name="team" id="input-team">
                 {% for team in teams %}
-                <option {% if input.team == team.t_id %} selected {% endif %} value="{{ team.t_id }}">{{ team.t_name }}</option>
+                <option {% if team.t_id in input.team %} selected {% endif %} value="{{ team.t_id }}">{{ team.t_name }}</option>
                 {% endfor %}
             </select>
             <button type="submit" class="uk-button uk-button-primary">Search</button>

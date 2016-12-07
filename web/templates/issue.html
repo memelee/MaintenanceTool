@@ -1,5 +1,16 @@
 {% extends 'layout.html' %}
 
+{% block css %}
+<link rel="stylesheet" href="/static/css/bootstrap-base.min.css">
+<link rel="stylesheet" href="/static/css/bootstrap-select.min.css">
+
+<style>
+.bootstrap-select {
+    white-space: nowrap;
+}
+</style>
+{% endblock css %}
+
 {% block body %}
     <div class="uk-grid">
         <div class="uk-width-1-1"> 
@@ -23,7 +34,14 @@
 {% endblock body %}
 
 {% block js %}
-<script type="text/javascript">        
+<script type="text/javascript" src="/static/js/bootstrap-base.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-select.min.js"></script>
+<script type="text/javascript">
+    $('.selectpicker').selectpicker({
+        iconBase: '',
+        tickIcon: 'uk-icon-check'
+    }); 
+
     $(document).ready(function() {
         $('#form-area').children('option[value!="0"]').each(function() { 
             $(this).wrap('<span style="display:none;"></span>');

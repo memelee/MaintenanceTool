@@ -32,7 +32,7 @@ class HelperView(BaseView):
         try:
             file.save(os.path.join(folder, filename))
         except Exception:
-            return 'File upload failed', 500
+            return '<script type="text/javascript">window.parent.showError();</script>'
         else:
             os.system('journalctl -D %s > %s/journal.log' % (folder, folder))
 

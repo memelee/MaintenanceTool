@@ -1,5 +1,6 @@
 import math
 from flask import render_template, request, session, g
+from flask import current_app
 
 from .common.base import BaseView
 from .common.function import *
@@ -18,10 +19,14 @@ class IssueView(BaseView):
             filter = and_(1==1)
             input = {}
 
-            category = request.args.get('category')
-            if category and int(category) > 0:
-                filter = and_(filter, Issue.category_id==int(category))
-                input['category'] = int(category)
+            category_list = request.args.getlist('category')
+            input['category'] = []
+            category_filter = []
+            for category in category_list:
+                if int(category) > 0:
+                    input['category'].append(int(category))
+                    category_filter.append(Issue.category_id==int(category))
+            filter = and_(filter, or_(*category_filter))
 
             pronto = request.args.get('pronto')
             if pronto:
@@ -43,15 +48,23 @@ class IssueView(BaseView):
                 filter = and_(filter, Issue.person.like('%%%s%%' % person))
                 input['person'] = person
 
-            state = request.args.get('state')
-            if state and int(state) > 0:
-                filter = and_(filter, Issue.state_id==int(state))
-                input['state'] = int(state)
+            state_list = request.args.getlist('state')
+            input['state'] = []
+            state_filter = []
+            for state in state_list:
+                if int(state) > 0:
+                    input['state'].append(int(state))
+                    state_filter.append(Issue.state_id==int(state))
+            filter = and_(filter, or_(*state_filter))
 
-            team = request.args.get('team')
-            if team and int(team) > 0:
-                filter = and_(filter, Issue.team_id==int(team))
-                input['team'] = int(team)
+            team_list = request.args.getlist('team')
+            input['team'] = []
+            team_filter = []
+            for team in team_list:
+                if int(team) > 0:
+                    input['team'].append(int(team))
+                    team_filter.append(Issue.team_id==int(team))
+            filter = and_(filter, or_(*team_filter))
             
             pagination = {}
             issue_cout = Issue.count(filter)
